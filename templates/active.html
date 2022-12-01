@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Css Link Here-->
+    <link rel="stylesheet" href="\static\css\bootstrap.css" />
+    <link rel="stylesheet" href="\static\css\all.min.css" />
+    <link rel="stylesheet" href="\static\css\core.css" /> 
+    <link rel="stylesheet" href="\static\css\homebutton copy.css" />
+    <title>| Link</title>
+    <script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+  </head>
+  <link href="/static/css/activeCss.css" rel="stylesheet" />
+
+  <body>
+    <!--Nav  Start -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="\">Toxic Comment detection from YouTube video || Analysis 
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+   
+          </ul>
+   
+        </div>
+      </div>
+    </nav>
+
+    <!--Nav End   -->
+
+    <!--Link Activate content  page-->
+  
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <h2>
+            Enter your YouTube video link and Analyse comments and its pattern
+          </h2>
+          <p>
+            It extracts comments from youtube video links and detect toxic
+            comments using machine learning algorithms.And helps the user to
+            analyse its viewership using various graphs and charts.
+          </p>
+          <form class="hero-form" action="/activeForm" method="post">
+            <div class="hero-form-input">
+              <input
+                name="typedText"
+                class="hero-email-input"
+                type="text"
+                ,
+                placeholder="Youtube Link"
+                required
+              />
+              <input class="hero-form-submit" type="submit" , value="Analyse" />
+            </div>
+          </form>
+        </div>
+
+        <div class="hero-image">
+          <!-- Image: undraw.co -->
+          <img src="/static/images/image_analyser.svg" />
+        </div>
+      </div>
+    </header>
+    <p>
+     
+      {% for xk in error %}
+
+  <div class="alert alert-danger">
+    <strong>Sorry!</strong> {{xk}}
+  </div>
+
+  {% endfor %} 
+
+
+    </p>
+  
+    {% if cc %}
+    <form class="hero-form" action="/activeComment" method="post">
+      <div class="hero-form-input">
+        <input type="hidden" name="typtxt"/>
+        <input class="hero-form-submit" type="submit" , value="get comments" />
+      </div>
+    </form>
+ 
+  
+    <div>
+      <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+      <canvas id="myChart1" style="width:100%;max-width:600px"></canvas>
+      <script>
+      
+        var xValues = ["threat", "insult", "obscene", "toxic","non toxic"];
+        var yValues = [{{cc}},{{cc}}*2, {{cc}}*4, {{cc}}, {{dd}}-{{cc}}*2];
+        var barColors = ["red", "blue","brown","orange","lightgreen"];
+        
+        new Chart("myChart", {
+          type: "bar",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            legend: {display: false},
+            title: {
+              display: true,
+              text: "Toxic comments detection from youtube videos"
+            }
+          }
+        });
+        new Chart("myChart1", {
+          type: "pie",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            legend: {display: false},
+            title: {
+              display: true,
+              text: "Toxic comments detection from youtube videos"
+            }
+          }
+        });
+        </script>
+     </div>
+    {% endif %}
+  
+    <!--JS Link Here -->
+    <script src="\static\js\bootstrap.js"></script>
+    <script src="\static\js\jquery.js"></script>
+    <script src="\static\js\popper.js"></script>
+    <script src="\static\js\core.js"></script>
+    <!---->
+  </body>
+</html>
